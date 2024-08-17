@@ -22,7 +22,7 @@ class Conversation {
      * @param {Array} removalList - A list of users to remove from the conversation.
      */
     remove_users(removalList) {
-        for (i = 0; i < this.userList.length; i++) {
+        for (var i = 0; i < this.userList.length; i++) {
             if (removalList.includes(this.userList[i])) {
                 this.userList.splice(i, 1);
                 i--;

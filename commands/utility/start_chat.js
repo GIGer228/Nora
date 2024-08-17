@@ -11,12 +11,22 @@ module.exports = {
                 .setDescription('Who else should join the conversation?')
         ),
     async execute(interaction) {
-        var userList = [interaction.member.user];
-        var additionalUser = interaction.options.getUser('additional_user');
-        if (additionalUser != null) {
-            userList.push(additionalUser);
+        var user = interaction.member.user;
+        if (user.isChatting) {
+            interaction.reply('You are already chatting with me in another chat >:|');
+            return;
         }
 
+        var userList = [user];
+        var additionalUser = interaction.options.getUser('additional_user');
+        if (additionalUser != null) {
+            if (!additionalUser.isChatting) userList.push(additionalUser);
+            else interaction.reply(`Your mate ${additionalUser.username} 
+                                    seems to already chatting with me elsewhere.
+                                    Try again later :)`);
+        }
+
+        userList.forEach(user => user.isChatting = true);
         var conversation = new Conversation(userList);
 
         interaction.client.conversations.push(conversation);
