@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('discord.js');
-const Conversation = require('../../conversation');
+const Conversation = require('../../conversation.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -11,10 +11,10 @@ module.exports = {
                 .setDescription('Who else should join the conversation?')
         ),
     async execute(interaction) {
-        var userList = [interaction.member.user.id];
+        var userList = [interaction.member.user];
         var additionalUser = interaction.options.getUser('additional_user');
         if (additionalUser != null) {
-            userList.push(additionalUser.id);
+            userList.push(additionalUser);
         }
 
         var conversation = new Conversation(userList);

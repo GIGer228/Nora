@@ -3,9 +3,9 @@ class Conversation {
      * 
      * @param {Array} userList - The list of conversation participants.
      */
-    constructor(userIdList = new Array()) {
-        this.userIdList = userIdList;
-        this.hostId = userIdList[0];
+    constructor(userList = new Array()) {
+        this.userList = userList;
+        this.host = userList[0];
         this.duration = 0;
         this.volume = 0;
         this.messageQueue = new Array();
@@ -15,16 +15,16 @@ class Conversation {
      * @param {Array} additionList - A list of users to join the conversation.
      */
     add_users(additionList) {
-        this.userIdList = this.userIdList.concat(additionList);
+        this.userList = this.userList.concat(additionList);
     }
     /**
      * Excludes several users from message processing.
      * @param {Array} removalList - A list of users to remove from the conversation.
      */
     remove_users(removalList) {
-        for (i = 0; i < this.userIdList.length; i++) {
-            if (removalList.includes(this.userIdList[i])) {
-                this.userIdList.splice(i, 1);
+        for (i = 0; i < this.userList.length; i++) {
+            if (removalList.includes(this.userList[i])) {
+                this.userList.splice(i, 1);
                 i--;
             }
         }

@@ -6,17 +6,17 @@ module.exports = {
         .setDescription('Ends your current conversation with Nora.')
     ,
     async execute(interaction) {
-        var memberId = interaction.member.user.id;
+        var member = interaction.member.user;
         var conversation = interaction.client.conversations[0];
-        var hostId = conversation.hostId;
+        var host = conversation.host;
 
         var memberCount = 1;
 
-        if (memberId === hostId) {
-            memberCount = conversation.userIdList.length;
+        if (member.id === host.id) {
+            memberCount = conversation.userList.length;
             interaction.client.conversations.shift(); //TODO: targeted deleting
         } else {
-            conversation.remove_users([memberId]);
+            conversation.remove_users([member]);
         }
 
         interaction.reply('Bye bye, see you next time!');
