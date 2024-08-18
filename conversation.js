@@ -9,6 +9,7 @@ class Conversation {
         this.duration = 0;
         this.volume = 0;
         this.messageQueue = new Array();
+        this.isPrivate = false;
     }
     /**
      * Adds several users to process messages from.
