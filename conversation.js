@@ -17,7 +17,6 @@ class Conversation {
      */
     add_users(additionList) {
         this.userList = this.userList.concat(additionList);
-        additionList.forEach(user => user.isChatting = true);
     }
     /**
      * Excludes several users from message processing.
@@ -25,7 +24,6 @@ class Conversation {
      */
     remove_users(removalList) {
         this.userList = this.userList.filter(user => !removalList.includes(user));
-        removalList.forEach(user => user.isChatting = false);
     }
     /**
      * Adds a message to process.

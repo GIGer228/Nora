@@ -32,6 +32,7 @@ module.exports = {
             }
 
             conversation.add_users(list);
+            list.forEach(user => user.isChatting = true);
 
             let salutation = list.length == 1 ? ['friend', 'there'] : ['friends', 'everyone'];
             message.reply(`Oke, let\'s chat together with your ` +
@@ -54,7 +55,8 @@ module.exports = {
             }
 
             conversation.remove_users(list);
-            
+            list.forEach(user => user.isChatting = false);
+
             let salutation = list.length == 1 ? ['friend', 'buddy'] : ['friends', 'everyone'];
             message.reply(`Oke, let\'s say bye-bye to your ` +
                         `${salutation[0]} ${list.map(user => user.displayName).join(' and ')}. ` +
