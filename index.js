@@ -3,8 +3,6 @@ const path = require('node:path');
 const { token } = require('./config.json');
 const { Client, Collection, GatewayIntentBits } = require('discord.js');
 
-const Conversation = require('./conversation.js');
-
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessageReactions] });
 // #region Accessing commands
 client.commands = new Collection();
@@ -41,7 +39,5 @@ for (file of eventFiles) {
     }
 }
 // #endregion
-
-client.conversations = new Array();
 
 client.login(token);
