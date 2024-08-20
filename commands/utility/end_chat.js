@@ -6,19 +6,19 @@ module.exports = {
         .setDescription('Ends your current conversation with Nora.')
     ,
     async execute(interaction) {
-        var user = interaction.member.user;
-        var conversation = interaction.client.conversations[0];
+        let user = interaction.member.user;
+        let conversation = interaction.client.get_conversation(user);
         if (!user.isChatting || conversation == undefined) {
-            interaction.reply('You are not even chatting with me >:(');
+            interaction.reply({ content: 'You are not even chatting with me >:(', ephemeral: true});
 
-            let reason = '[Already chatting]' ? user.isChatting : '[No conversations created yet]';
+            let reason = user.isChatting ? '[Already chatting]' : '[No conversations created yet]';
             console.log(`Failed to end a conversation with user due to reason: ${reason}`);
             return;
         }
 
-        var host = conversation.host;
-        var userList = conversation.userList;
-        var userCount = 1;
+        let host = conversation.host;
+        let userList = conversation.userList;
+        let userCount = 1;
 
         if (user.id === host.id) {
             userList.forEach(user => user.isChatting = false);
@@ -33,6 +33,7 @@ module.exports = {
             console.log(`Removed ${userCount} user(s) from a conversation.`);
         }
 
-        interaction.reply('Bye bye, see you next time!');
+        let displayNames = userList.map(user => user.displayName);
+        interaction.reply(`Bye bye, see you next time, ${displayNames.join(', ')}!`);
     }
 };
