@@ -3,13 +3,13 @@ class Conversation {
      * 
      * @param {Array} userList - The list of conversation participants.
      */
-    constructor(userList = new Array()) {
+    constructor(userList = new Array(), isPrivate = false) {
         this.userList = userList;
         this.host = userList[0];
         this.duration = 0;
         this.volume = 0;
         this.messageQueue = new Array();
-        this.isPrivate = false;
+        this.isPrivate = isPrivate;
     }
     /**
      * Adds several users to process messages from.
