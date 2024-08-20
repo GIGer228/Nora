@@ -5,8 +5,8 @@ module.exports = {
     once: true,
     execute(client) {
         client.conversations = new Array();
-        client.get_conversation = (host) => {
-            return client.conversations.find(c => c.host == host);
+        client.get_conversation = (user) => {
+            return client.conversations.find(c => c.userList.includes(user));
         };
         console.log(`${client.user.tag} client is ready!`);
     },
