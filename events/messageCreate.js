@@ -71,9 +71,15 @@ module.exports = {
             let addRequest = search.includes('add');
             let removeRequest = search.includes('remove');
             if (!(addRequest || removeRequest)) {
-                channel.send('Ping me only if you wanna \`add/remove\` some users to/from the conversation!');
+                message.reply('Ping me only if you wanna \`add/remove\` some users to/from the conversation!');
                 return;
             };
+
+            const host = conversation.host;
+            if (author.id != host.id) {
+                message.reply(`Only ${host.displayName} can edit member list of this conversation!`);
+                return;
+            }
 
             let list = mentions.parsedUsers.map(user => user);
             // Getting rid of client's mentions
