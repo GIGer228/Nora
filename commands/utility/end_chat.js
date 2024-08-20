@@ -25,9 +25,12 @@ module.exports = {
             displayNames = userList.map(user => user.displayName);
             userCount = userList.length;
             
-            interaction.client.conversations.shift(); //TODO: targeted deleting
+            interaction.client.conversations = interaction.client.conversations
+                                                .filter(c => c != conversation);
 
-            console.log(`Finished a conversation with ${userCount} user(s).`);
+            console.log(`Finished a conversation with ${userCount} user(s).` + 
+                        ` Host: ${host.username}`
+            );
         }
 
         function exclude_member() {
@@ -37,7 +40,9 @@ module.exports = {
 
             conversation.remove_users([user]);
 
-            console.log(`Removed ${userCount} user(s) from a conversation.`);
+            console.log(`Removed ${user.username} from a conversation.` +
+                        ` Host: ${host}`
+            );
         }
 
         if (user.id === host.id) finish_conversation();
