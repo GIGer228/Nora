@@ -18,22 +18,31 @@ module.exports = {
 
         let host = conversation.host;
         let userList = conversation.userList;
-        let userCount = 1;
+        let displayNames, userCount;
 
-        if (user.id === host.id) {
+        function finish_conversation() {
             userList.forEach(user => user.isChatting = false);
+            displayNames = userList.map(user => user.displayName);
             userCount = userList.length;
+            
             interaction.client.conversations.shift(); //TODO: targeted deleting
 
             console.log(`Finished a conversation with ${userCount} user(s).`);
-        } else {
+        }
+
+        function exclude_member() {
             user.isChatting = false;
+            displayNames = [user.displayName];
+            userCount = 1;
+
             conversation.remove_users([user]);
 
             console.log(`Removed ${userCount} user(s) from a conversation.`);
         }
 
-        let displayNames = userList.map(user => user.displayName);
+        if (user.id === host.id) finish_conversation();
+        else exclude_member();
+
         interaction.reply(`Bye bye, see you next time, ${displayNames.join(', ')}!`);
     }
 };
