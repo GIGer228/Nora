@@ -17,18 +17,15 @@ class Conversation {
      */
     add_users(additionList) {
         this.userList = this.userList.concat(additionList);
+        additionList.forEach(user => user.isChatting = true);
     }
     /**
      * Excludes several users from message processing.
      * @param {Array} removalList - A list of users to remove from the conversation.
      */
     remove_users(removalList) {
-        for (var i = 0; i < this.userList.length; i++) {
-            if (removalList.includes(this.userList[i])) {
-                this.userList.splice(i, 1);
-                i--;
-            }
-        }
+        this.userList = this.userList.filter(user => !removalList.includes(user));
+        removalList.forEach(user => user.isChatting = false);
     }
     /**
      * Adds a message to process.
